@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.lb.framework</groupId>
+    <artifactId>framework</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>framework-web</artifactId>
+  <name>framework-web</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<!-- spring end -->
+
+		<!-- servlet & jsp -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<!-- servlet & jsp end -->
+
+		<!-- apache commons -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<!-- apache commons end -->
+
+		<!-- netease nkv -->
+		<!-- <dependency>
+			<groupId>netease</groupId>
+			<artifactId>nkv</artifactId>
+		</dependency> -->
+		<!-- netease nkv end -->
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<!-- logging end -->
+
+		<dependency>
+			<groupId>com.lb.framework</groupId>
+			<artifactId>framework-tools</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lb.framework</groupId>
+			<artifactId>framework-core</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+	</dependencies>
+</project>
