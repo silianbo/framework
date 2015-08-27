@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
  * @author lb
  * 
  * @see javax.servlet.http.HttpServletRequestWrapper
- * @see com.ihome.framework.web.session.DistributedSessionManager
- * @see com.ihome.framework.web.session.DistributedSession
+ * @see com.lb.framework.web.session.DistributedSessionManager
+ * @see com.lb.framework.web.session.DistributedSession
  */
 public class DistributedSessionRequest extends HttpServletRequestWrapper {
 

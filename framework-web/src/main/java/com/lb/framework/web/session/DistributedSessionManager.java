@@ -18,7 +18,7 @@ import org.springframework.web.context.ServletContextAware;
  * 
  * @author 464281
  * 
- * @see com.ihome.framework.web.session.DistributedSession
+ * @see com.lb.framework.web.session.DistributedSession
  * @see org.springframework.web.context.ServletContextAware
  * @see javax.servlet.http.HttpServletRequest
  * @see javax.servlet.http.HttpServletResponse

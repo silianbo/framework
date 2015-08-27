@@ -37,8 +37,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author 464281
  * 
  * @see javax.servlet.http.HttpSession
- * @see com.ihome.framework.web.session.DistributedSessionManager
- * @see com.ihome.framework.web.session.DistributedSessionRequest
+ * @see com.lb.framework.web.session.DistributedSessionManager
+ * @see com.lb.framework.web.session.DistributedSessionRequest
  */
 @SuppressWarnings("deprecation")
 public class DistributedSession implements HttpSession, Serializable {

@@ -28,7 +28,11 @@
 	<property name="distributedSessionManager">
 		<bean class="com.lb.framework.web.session.DefaultDistributedSessionManager">
 			<property name="distributedSessionDao">
-				<bean class="com.lb.framework.web.session.DefaultSessionDao" />
+				<bean class="com.lb.framework.web.session.RedisSessionDao">
+					<property name="redisCacheManager">
+						<ref bean="redisCacheManager" />
+					</property>
+				</bean>
 			</property>
 			<property name="sessionCookieName" value="${session.cookieName}" />
 			<property name="sessionTimeout" value="${session.timeout}" />
@@ -36,5 +40,4 @@
 		</bean>
 	</property>
 	</bean>
-
 </beans>

@@ -22,7 +22,7 @@ import com.lb.framework.web.servlet.json.WebJsonUtil;
  * <p>
  * 指定错误页面、错误码及错误信息，由解析器来进行处理输出
  * 
- * @author 464281
+ * @author lb
  */
 public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerExceptionResolver {
 

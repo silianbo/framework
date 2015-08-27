@@ -7,7 +7,7 @@ package com.lb.framework.web.session;
  * 
  * @author 464281
  * 
- * @see com.ihome.framework.web.session.DistributedSession
+ * @see com.lb.framework.web.session.DistributedSession
  */
 public interface DistributedSessionDao {
 

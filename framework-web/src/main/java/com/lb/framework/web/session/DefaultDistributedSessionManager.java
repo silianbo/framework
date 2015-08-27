@@ -16,13 +16,13 @@ import org.springframework.beans.factory.InitializingBean;
  * 默认的分布式会话管理器实现
  * <p>
  * 默认管理器实现了通用的会话管理功能，将会话存储交给分布式会话DAO
- * {@link com.ihome.framework.web.session.DistributedSessionDao}来实现
+ * {@link com.lb.framework.web.session.DistributedSessionDao}来实现
  * 
  * @author 464281
  * 
- * @see com.ihome.framework.web.session.DistributedSessionManager
- * @see com.ihome.framework.web.session.DistributedSession
- * @see com.ihome.framework.web.session.DistributedSessionDao
+ * @see com.lb.framework.web.session.DistributedSessionManager
+ * @see com.lb.framework.web.session.DistributedSession
+ * @see com.lb.framework.web.session.DistributedSessionDao
  */
 public class DefaultDistributedSessionManager implements
 		DistributedSessionManager, InitializingBean {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 使用托管方式的disconf配置(无代码侵入, 配置更改不会自动reload) -->
+	<bean id="disconf_redis_locations"
+		class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>redis.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="disconf_redis_propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="propertiesArray">
+			<list>
+				<ref bean="disconf_redis_locations" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="redisCacheManager" class="com.github.knightliao.apollo.redis.RedisCacheManager" init-method="init">
+         <property name="clientList">
+             <list>
+                 <ref bean="redisClient" />
+             </list>
+         </property>
+         <property name="retryTimes">
+             <value>${redis.retry.times}</value>
+         </property>
+         <property name="evictorDelayCheckSeconds">
+             <value>${redis.evictor.delayCheckSeconds}</value>
+         </property>
+         <property name="evictorCheckPeriodSeconds">
+             <value>${redis.evictor.checkPeriodSeconds}</value>
+         </property>
+         <property name="evictorFailedTimesToBeTickOut">
+             <value>${redis.evictor.failedTimesToBeTickOut}</value>
+         </property>
+     </bean>
+
+     <bean id="redisClientConfig" class="com.github.knightliao.apollo.redis.config.RedisHAClientConfig">
+         <property name="cacheName">
+             <value>${redis.group1.client1.name}</value>
+         </property>
+         <property name="redisServerHost">
+             <value>${redis.group1.client1.host}</value>
+         </property>
+         <property name="redisServerPort">
+             <value>${redis.group1.client1.port}</value>
+         </property>
+         <property name="timeout">
+             <value>${redis.group1.client1.timeout}</value>
+         </property>
+         <property name="redisAuthKey">
+             <value>${redis.group1.client1.password}</value>
+         </property>
+     </bean>
+
+     <bean id="redisClient" class="com.github.knightliao.apollo.redis.RedisClient">
+         <constructor-arg>
+             <ref bean="redisClientConfig" />
+         </constructor-arg>
+     </bean>
+
+</beans>
