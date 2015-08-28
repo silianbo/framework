@@ -16,7 +16,7 @@ import org.springframework.web.context.ServletContextAware;
  * 关于会话配置，由于会话获取不到容器会话配置，原有会话配置在分布式会话下将不再生效，包括会话的超时时间、会话的cookie配置等，</br>
  * 需要重新配置在会话管理器中。同时由于分布存储总是需要过期设置，并且会话管理器也不支持扫描会话并置为过期控制，所以分布式会话也不支持永久存储。
  * 
- * @author 464281
+ * @author lb
  * 
  * @see com.lb.framework.web.session.DistributedSession
  * @see org.springframework.web.context.ServletContextAware
@@ -37,7 +37,7 @@ public interface DistributedSessionManager extends ServletContextAware {
 	 * @param response
 	 *            HTTP响应
 	 * @return 分布式会话
-	 * @see com.ihome.framework.web.session.DistributedSession
+	 * @see com.lb.framework.web.session.DistributedSession
 	 * @throws DistributedSessionException
 	 *             当从存储端到获取出现异常时抛出
 	 */
@@ -55,7 +55,7 @@ public interface DistributedSessionManager extends ServletContextAware {
 	 * @param response
 	 *            HTTP响应
 	 * @return 分布式会话
-	 * @see com.ihome.framework.web.session.DistributedSession
+	 * @see com.lb.framework.web.session.DistributedSession
 	 * @throws DistributedSessionException
 	 *             当会话ID已经存在或存储出现异常时抛出
 	 */
@@ -83,7 +83,7 @@ public interface DistributedSessionManager extends ServletContextAware {
 	 * 
 	 * @param distributedSession
 	 *            分布式会话
-	 * @see com.ihome.framework.web.session.DistributedSession
+	 * @see com.lb.framework.web.session.DistributedSession
 	 * @throws DistributedSessionException
 	 *             当存储出现异常时抛出
 	 */
@@ -100,7 +100,7 @@ public interface DistributedSessionManager extends ServletContextAware {
 	 *            HTTP请求
 	 * @param response
 	 *            HTTP响应
-	 * @see com.ihome.framework.web.session.DistributedSession
+	 * @see com.lb.framework.web.session.DistributedSession
 	 * @throws DistributedSessionException
 	 *             当从存储端删除出现异常时抛出
 	 */

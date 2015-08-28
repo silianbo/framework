@@ -96,7 +96,7 @@ public class DefaultDistributedSessionManager implements
 	/**
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ihome.framework.web.session.DistributedSessionManager#getSession(java.lang.String,
+	 * @see com.lb.framework.web.session.DistributedSessionManager#getSession(java.lang.String,
 	 *      javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
@@ -121,7 +121,7 @@ public class DefaultDistributedSessionManager implements
 	/**
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ihome.framework.web.session.DistributedSessionManager#createSession(javax.servlet.http.HttpServletRequest,
+	 * @see com.lb.framework.web.session.DistributedSessionManager#createSession(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
@@ -149,7 +149,7 @@ public class DefaultDistributedSessionManager implements
 	/**
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ihome.framework.web.session.DistributedSessionManager#getSessionId(javax.servlet.http.HttpServletRequest,
+	 * @see com.lb.framework.web.session.DistributedSessionManager#getSessionId(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
@@ -176,7 +176,7 @@ public class DefaultDistributedSessionManager implements
 	/**
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ihome.framework.web.session.DistributedSessionManager#commitSession(com.ihome.framework.web.session.DistributedSession)
+	 * @see com.lb.framework.web.session.DistributedSessionManager#commitSession(com.ihome.framework.web.session.DistributedSession)
 	 */
 	@Override
 	public void commitSession(DistributedSession distributedSession) {

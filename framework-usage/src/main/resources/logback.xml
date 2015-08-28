@@ -68,7 +68,7 @@
 	</appender>
 
 	<!-- This is the kafkaAppender -->
-	<appender name="kafkaAppender"
+	<!-- <appender name="kafkaAppender"
 		class="com.github.danielwegener.logback.kafka.KafkaAppender">
 		<encoder
 			class="com.github.danielwegener.logback.kafka.encoding.PatternLayoutKafkaMessageEncoder">
@@ -85,7 +85,7 @@
 		</deliveryStrategy>
 		<producerConfig>bootstrap.servers=10.166.224.97:9092</producerConfig>
 		<appender-ref ref="stdout"></appender-ref>
-	</appender>
+	</appender> -->
 
 	<logger name="com.lb">
 		<level value="debug" />
