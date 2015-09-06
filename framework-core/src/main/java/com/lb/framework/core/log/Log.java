@@ -28,7 +28,7 @@ public class Log {
 	/**
 	 * 日志格式 [operation][message],{key1=value1,key2=value2,key3=value3}
 	 */
-	private static final String LOG_FORMAT = "[%s][%s],%s";
+	private static final String LOG_FORMAT = "%d|%s|%s|%s";
 
 	public Log(String operation) {
 		this.operation = operation;
@@ -52,14 +52,14 @@ public class Log {
 		params.putAll(maps);
 		return this;
 	}
-
+	
 	@Override
 	public String toString() {
-		return String.format(LOG_FORMAT, operation, message, params.toString());
+		return String.format(LOG_FORMAT, System.currentTimeMillis(), operation, params.toString(), message);
 	}
 
 	public static void main(String[] args) {
-		String s = Log.op("operation").msg("message").kv("name", "lb").kv("id", 12345).toString();
+		String s = Log.op("createOrderOp").msg("create order success!").kv("name", "zhengxiahong").kv("id", 12345).toString();
 		System.out.println(s);
 	}
 

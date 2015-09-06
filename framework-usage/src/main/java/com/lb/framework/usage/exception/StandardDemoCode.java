@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 package com.lb.framework.usage.exception;
 
 import java.sql.SQLException;
@@ -11,18 +11,18 @@ import org.slf4j.LoggerFactory;
 
 import com.lb.framework.core.exception.BusinessException;
 
-/**
+*//**
  * 
  * 异常规范里面的代码示例
  * 
  * @author lb
- */
+ *//*
 public class StandardDemoCode {
     private static final Logger logger = LoggerFactory.getLogger(StandardDemoCode.class);
 
-    /**
+    *//**
      * 吞掉异常的情况
-     */
+     *//*
     @Test
     public void eatException() {
         try {
@@ -63,12 +63,12 @@ public class StandardDemoCode {
         }
     }
     
-    /**
+    *//**
      * 登陆
      * @param username
      * @param password
      * @throws BusinessException
-     */
+     *//*
     @Test
     public void login(String username, String password) {
         if(username == null || password == null) {
@@ -76,3 +76,4 @@ public class StandardDemoCode {
         }
     }
 }
+*/

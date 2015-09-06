@@ -51,7 +51,9 @@ public class TestLogController {
 		try {
 			throw new IOException("xxxx");
 		} catch (IOException ex) {
-			logger.error(Log.op("dbError").msg("write db error").kv("orderNum", "11111").toString(), ex);
+			throw new RuntimeException("find a ioException", ex);
+		} catch (RuntimeException ex) {
+            logger.error(Log.op("dbError").msg("write db error").kv("orderNum", "11111").toString(), ex);
 		}
 		return "index";
 	}

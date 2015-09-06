@@ -7,8 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.alibaba.dubbo.rpc.RpcContext;
+import com.lb.framework.core.log.LogConst;
+import com.lb.framework.core.log.LogTools;
 import com.lb.framework.web.servlet.HttpServletHolder;
 
 /**
@@ -27,6 +31,11 @@ public class HttpServletHolderFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String uniqueId = request.getHeader(HttpServletHolder.UNIQUE_ID_HEADER_NAME);
+			if(StringUtils.isBlank(uniqueId)) {
+				uniqueId = LogTools.generateUID();
+                RpcContext.getContext().setAttachment(LogConst.UID, uniqueId);
+                HttpServletHolder.setUid(uniqueId);
+            }
 			HttpServletHolder.set(request, response, uniqueId);
 			filterChain.doFilter(request, response);
 		} finally {

@@ -1,14 +1,7 @@
 package com.lb.framework.web.servlet;
 
-import java.util.Date;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.lb.framework.tools.util.DateUtil;
 
 /**
  * HTTP SERVLET请求和响应持有者
@@ -16,7 +9,7 @@ import com.lb.framework.tools.util.DateUtil;
  * 持有请求和响应的本地线程变量，请在请求进入后设置变量，在返回前清除变量
  * </p>
  * 
- * @author 464281
+ * @author lb
  */
 public class HttpServletHolder {
 
@@ -55,10 +48,7 @@ public class HttpServletHolder {
 	 * 
 	 * @param uniqueId 唯一id
 	 */
-	private static void setUid(String uniqueId) {
-		if(StringUtils.isBlank(uniqueId)) {
-			uniqueId = createUID();
-		}
+	public static void setUid(String uniqueId) {
 		inheritableUniqueId.set(uniqueId);
 	}
 	
@@ -96,11 +86,5 @@ public class HttpServletHolder {
 		currentRequest.remove();
 		currentResponse.remove();
 		inheritableUniqueId.remove();
-	}
-	
-	private static String createUID() {
-		String date = DateUtil.format(new Date(), "yyyyMMddHHmmss");
-		String uniqueId = date + StringUtils.remove(UUID.randomUUID().toString(), "-");
-		return uniqueId;
 	}
 }

@@ -14,8 +14,8 @@
 	</context:component-scan>
 
 	<!-- 引入框架封装好的配置-->
-	<import resource="classpath:framework-core/ihome-framework-redis.xml"/>
 	<!-- <import resource="classpath:framework-core/ihome-framework-mq.xml"/> -->
+	<import resource="classpath:framework-core/ihome-framework-redis.xml"/>
 	<import resource="classpath:framework-core/ihome-framework-validator.xml"/>
 	<import resource="classpath:framework-web/ihome-framework-session.xml"/>
 	

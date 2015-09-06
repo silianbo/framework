@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.lb.framework.core.log.LogConst;
 import com.lb.framework.web.servlet.HttpServletHolder;
 import com.lb.framework.web.util.WebUtil;
 
@@ -30,8 +31,11 @@ public class LoggerMDCFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
-			MDC.put("url", WebUtil.getRequestUriWithQueryString(request));
-			MDC.put("uid", HttpServletHolder.getUid());
+        	String uid = HttpServletHolder.getUid();
+			MDC.put(LogConst.URL, WebUtil.getRequestUriWithQueryString(request));
+			MDC.put(LogConst.UID, uid);
+			// 用于同1个controller调用多个dubbo service的时候,能共用同1个uid
+			MDC.put(LogConst.IS_THREAD_PROVIDER, LogConst.TRUE);
             filterChain.doFilter(request, response);
         } finally {
             MDC.clear();
