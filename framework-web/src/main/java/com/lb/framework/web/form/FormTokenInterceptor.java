@@ -25,6 +25,9 @@ public class FormTokenInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		if(!(handler instanceof HandlerMethod)) {
+			return true;
+		}
 		// token的验证
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		FormToken formToken = handlerMethod.getMethod().getAnnotation(FormToken.class);
@@ -50,6 +53,9 @@ public class FormTokenInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		if(!(handler instanceof HandlerMethod)) {
+			return;
+		}
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		FormToken formToken = handlerMethod.getMethod().getAnnotation(FormToken.class);
 		if (formToken == null) {

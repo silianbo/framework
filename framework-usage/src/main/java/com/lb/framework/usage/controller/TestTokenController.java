@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lb.framework.core.commons.OpResponse;
 import com.lb.framework.web.form.FormToken;
 
 @Controller
@@ -24,8 +25,16 @@ public class TestTokenController {
     @RequestMapping("/doLogin")
     @ResponseBody
     @FormToken(checkToken=true)
-    public String doLogin(@RequestParam String name, @RequestParam String password, @RequestParam String token){
-        logger.info("doLogin, name:{}, password:{}, token:{}", name, password, token);
+    public String doLogin(@RequestParam String name, @RequestParam String password, @RequestParam String _ihome_form_token){
+        logger.info("doLogin, name:{}, password:{}, token:{}", name, password, _ihome_form_token);
         return "login success";
     }
+    
+    @RequestMapping("/toLoginJson")
+    @FormToken(generateToken=true)
+    public OpResponse toLoginJson() {
+        OpResponse op = OpResponse.suc();
+        return op;
+    }
+
 }

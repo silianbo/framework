@@ -1,7 +1,5 @@
 package com.lb.framework.usage.interceptor;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,8 +24,8 @@ public class RequestInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-	    Map<String, Object> map = modelAndView.getModel();
-	    System.out.println(map);
+	    //Map<String, Object> map = modelAndView.getModel();
+	    //System.out.println(map);
 	}
 
 	@Override

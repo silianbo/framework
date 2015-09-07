@@ -72,7 +72,7 @@ public class DistributedSessionRequest extends HttpServletRequestWrapper {
 			getRequestedSessionId();
 		}
 
-		if (null == distributedSession && create) {
+		if (null == distributedSession || create) {
 			if (response.isCommitted()) {
 				throw new IllegalStateException("response has committed!");
 			}
