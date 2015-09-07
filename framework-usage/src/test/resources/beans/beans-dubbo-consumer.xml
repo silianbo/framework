@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="framework-usage-consumer" owner="ct" />
+	<dubbo:registry address="zookeeper://10.166.224.32:2181" />
+	<dubbo:protocol name="dubbo" port="20883" />
+	<dubbo:monitor protocol="registry" />
+	<dubbo:provider retries="3" timeout="100000" />
+	<dubbo:consumer check="false" />
+
+	<!-- consume服务 -->
+	<dubbo:reference interface="com.lb.framework.usage.service.IDubboTestService"
+		id="dubboTestService" />
+
+	<!-- provide服务 -->
+	<!-- <dubbo:service
+		interface="com.lb.framework.usage.service.IDubboTestService"
+		ref="dubboTestService" /> -->
+</beans>

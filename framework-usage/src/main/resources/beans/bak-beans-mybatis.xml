@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="url" value="#{jdbcConfig.url}" />
+		<property name="driverClassName" value="#{jdbcConfig.driver}" />
+		<property name="username" value="#{jdbcConfig.username}" />
+		<property name="password" value="#{jdbcConfig.password}" />
+		<property name="initialSize" value="#{jdbcConfig.initialSize}" />
+		<property name="maxIdle" value="#{jdbcConfig.maxIdle}" />
+		<property name="minIdle" value="#{jdbcConfig.minIdle}" />
+		<property name="maxActive" value="#{jdbcConfig.maxActive}" />
+		<property name="logAbandoned" value="#{jdbcConfig.logAbandoned}" />
+		<property name="removeAbandoned" value="#{jdbcConfig.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="#{jdbcConfig.removeAbandonedTimeout}" />
+		<property name="maxWait" value="#{jdbcConfig.maxWait}" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="dataSource" p:configLocation="classpath:mybatis-config.xml"
+		p:mapperLocations="classpath:mapper/**/*.xml" />
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.ihome.trust.rights.dao" />
+</beans>

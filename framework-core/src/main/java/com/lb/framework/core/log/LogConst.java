@@ -15,7 +15,7 @@ public class LogConst {
     /**
      * 当前线程是否有当过dubbo服务的provider
      */
-    public static final String IS_THREAD_PROVIDER = "isThreadProvicer";
+    public static final String IS_THREAD_PROVIDER = "isThreadProvider";
     
     /**
      * true
