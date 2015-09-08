@@ -33,7 +33,7 @@ public class TestTokenController {
     @RequestMapping("/toLoginJson")
     @FormToken(generateToken=true)
     public OpResponse toLoginJson() {
-        OpResponse op = OpResponse.suc();
+        OpResponse op = new OpResponse();
         return op;
     }
 

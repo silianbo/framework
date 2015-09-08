@@ -35,7 +35,7 @@ public class TestExceptionController {
 	@RequestMapping("/errcodeUsage")
 	@ResponseBody
 	public OpResponse errcodeUsage(HttpServletRequest req) {
-		OpResponse result = OpResponse.suc();
+		OpResponse result = new OpResponse();
 		String userName = req.getParameter("userName");
 
 		// 不需要参数的错误码

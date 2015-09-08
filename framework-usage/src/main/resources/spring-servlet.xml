@@ -13,7 +13,9 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="false">
 			<bean
@@ -21,7 +23,7 @@
 				<property name="supportedMediaTypes">
 					<list>
 						<value>text/plain;charset=UTF-8</value>
-						<!-- <value>application/json;charset=UTF-8</value> -->
+						<value>application/json;charset=UTF-8</value>
 					</list>
 				</property>
 			</bean>
@@ -34,14 +36,15 @@
 	<bean id="formTokenManager" class="com.lb.framework.web.form.SessionTokenManager"></bean>
 	
     <mvc:interceptors>
-    	<mvc:interceptor>
+    	<!-- 重构成了使用切面做表单防止重复提交 -->
+    	<!-- <mvc:interceptor>
     		<mvc:mapping path="/**" />
 	    	<bean id="formTokenInterceptor" class="com.lb.framework.web.form.FormTokenInterceptor">
 				<property name="formTokenManager" >
 					<ref bean="formTokenManager"/>
 				</property>
 			</bean>
-		</mvc:interceptor>
+		</mvc:interceptor> -->
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <!-- <mvc:exclude-mapping path="/admin/polling"/> -->

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.lb.framework.usage.service.IDubboTestService;
 
-@Service(value = "myDubboTestService")
+@Service(value = "dubboTestService")
 public class DubboTestService implements IDubboTestService {
 
 	@Override

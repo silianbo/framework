@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lb.framework.core.exception.ApplicationException;
@@ -151,10 +152,11 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
             } else {
                 ApplicationException ae = (ApplicationException) ex;
                 try {
-                    retMessage = messageSource.getMessage(errorCode, ae.getArgs(), null);
+                    retMessage = messageSource.getMessage(errorCode, ae.getArgs(), LocaleContextHolder.getLocale());
                 } catch (NoSuchMessageException nmex) {
-                    logger.error("errorCode not in messageSource", nmex);
-                    retMessage = defaultErrorMessage;
+                    logger.info("errorCode not in messageSource", nmex);
+                    retMessage = ex.getMessage();
+                	retMessage = StringUtils.isBlank(retMessage) ? defaultErrorMessage : retMessage;
                 }
             }
         } else {

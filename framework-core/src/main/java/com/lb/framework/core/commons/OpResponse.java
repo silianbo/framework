@@ -1,8 +1,6 @@
 package com.lb.framework.core.commons;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 用来保存一些操作的结果
@@ -13,63 +11,61 @@ public class OpResponse implements Serializable {
 
     private static final long serialVersionUID = 2331099959379685238L;
 
+    /**
+     * 应用返回的错误码
+     */
     protected int code;
 
+    /**
+     * 应用返回的(错误)信息
+     */
 	protected String message;
 
-	protected Map<String, Object> params = new HashMap<String, Object>();
+	/**
+	 * 应用返回的数据
+	 */
+	protected Object data;
 
-	public static final int SUCCESS = 200;
+	/**
+	 * 某次请求返回的token，用于下一次表单提交
+	 */
+	protected String token;
 
-	public static OpResponse suc() {
-		return suc(null);
-	}
+    public int getCode() {
+        return code;
+    }
 
-	public static OpResponse suc(String message) {
-		OpResponse result = new OpResponse();
-		result.code = SUCCESS;
-		result.message = message;
-		return result;
-	}
+    public void setCode(int code) {
+        this.code = code;
+    }
 
-	public boolean isSuc() {
-		return (code == SUCCESS);
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public boolean isFail() {
-		return !isSuc();
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void addParam(String key, Object value) {
-		params.put(key, value);
-	}
+    public Object getData() {
+        return data;
+    }
 
-	public Object getParam(String key) {
-		return params.get(key);
-	}
+    public void setData(Object data) {
+        this.data = data;
+    }
 
-	public Map<String, Object> getParams() {
-		return params;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	public int getCode() {
-		return code;
-	}
+    public void setToken(String token) {
+        this.token = token;
+    }
 
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	@Override
-	public String toString() {
-		return "OpResponse [code=" + code + ", message=" + message + ", params=" + params + "]";
-	}
+    @Override
+    public String toString() {
+        return "OpResponse [code=" + code + ", message=" + message + ", data=" + data + ", token=" + token + "]";
+    }
+    
 }
