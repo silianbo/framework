@@ -11,11 +11,11 @@
 	<dubbo:consumer check="false" />
 
 	<!-- consume服务 -->
-	<!-- <dubbo:reference interface="com.ihome.trust.product.service.IProductParamService"
-		id="productParamService" /> -->
+	<dubbo:reference interface="com.lb.framework.usage.service.IDubboTestService"
+		id="myDubboTestService" />
 
 	<!-- provide服务 -->
-	<dubbo:service
+	<!-- <dubbo:service
 		interface="com.lb.framework.usage.service.IDubboTestService"
-		ref="dubboTestService" />
+		ref="dubboTestService" /> -->
 </beans>

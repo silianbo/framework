@@ -103,15 +103,17 @@
 
 	<logger name="PAGE-DIGEST" additivity="false">
 		<level value="INFO" />
+		<appender-ref ref="PAGE-DIGEST-APPENDER" />
 	</logger>
 	
 	<logger name="com.lb">
-		<level value="debug" />
+		<level value="INFO" />
 	</logger>
 
 	<root>
-		<level value="debug" />
+		<level value="INFO" />
 		<appender-ref ref="stdout" />
+		<appender-ref ref="COMMON-APPENDER"/>
 		
 		<!-- <appender-ref ref="kafkaAppender" /> -->
 		

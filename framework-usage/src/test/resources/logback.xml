@@ -68,6 +68,19 @@
 		<queueSize>1024</queueSize>
 		<appender-ref ref="COMMON-APPENDER" />
 	</appender>
+	
+	<appender name="PAGE-DIGEST-APPENDER"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base}/${log.proj}_page-digest.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/${log.proj}_page-digest_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10mb</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${PATTERN_LAYOUT}</pattern>
+		</encoder>
+	</appender>
 
 	<!-- This is the kafkaAppender -->
 	<!-- <appender name="kafkaAppender"
@@ -88,13 +101,19 @@
 		<appender-ref ref="stdout"></appender-ref>
 	</appender> -->
 
+	<logger name="PAGE-DIGEST" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="PAGE-DIGEST-APPENDER" />
+	</logger>
+	
 	<logger name="com.lb">
-		<level value="debug" />
+		<level value="INFO" />
 	</logger>
 
 	<root>
-		<level value="debug" />
+		<level value="INFO" />
 		<appender-ref ref="stdout" />
+		<appender-ref ref="COMMON-APPENDER"/>
 		
 		<!-- <appender-ref ref="kafkaAppender" /> -->
 		

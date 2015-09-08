@@ -12,7 +12,7 @@
 
 	<!-- consume服务 -->
 	<dubbo:reference interface="com.lb.framework.usage.service.IDubboTestService"
-		id="dubboTestService" />
+		id="myDubboTestService" />
 
 	<!-- provide服务 -->
 	<!-- <dubbo:service
