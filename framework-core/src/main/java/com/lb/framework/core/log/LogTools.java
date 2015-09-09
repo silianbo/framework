@@ -19,7 +19,7 @@ public class LogTools {
      */
     public static String generateUID() {
         String date = format(new Date(), "yyyyMMddHHmmss");
-        String uniqueId = date + StringUtils.remove(UUID.randomUUID().toString(), "-");
+        String uniqueId = date + "_" + StringUtils.remove(UUID.randomUUID().toString(), "-");
         return uniqueId;
     }
 

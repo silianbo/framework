@@ -49,21 +49,21 @@ public enum WebErrors implements IErrors<OpResponse> {
 	}
 
 	@Override
-	public ApplicationException exp(Throwable cause, Object... args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public ApplicationException exp(Throwable cause, Object... args) {
+        String formatReason = String.format(message, args);
+        return new PlatformException(code, formatReason, cause, args);
+    }
 
-	@Override
-	public ApplicationException expMsg(String message, Object... args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ApplicationException expMsg(String message, Object... args) {
+        String formatReason = String.format(message, args);
+        return new PlatformException(formatReason, args);
+    }
 
-	@Override
-	public ApplicationException expMsg(String message, Throwable cause, Object... args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ApplicationException expMsg(String message, Throwable cause, Object... args) {
+        String formatReason = String.format(message, args);
+        return new PlatformException(code, formatReason, cause, args);
+    }
 
 }

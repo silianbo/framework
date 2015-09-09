@@ -50,7 +50,7 @@ public class FormTokenAspect {
                 throw WebErrors.TOKEN_NOT_EXIST.exp();
             }
             logger.debug("checkToken, token {} exist", token);
-            return pjp.proceed();
+            // 这里不返回,是因为有可能同1个方法既需要验证,又需要生成新的token,放在下面return
         }
         // 设置token
         if(formToken.generateToken()) {
