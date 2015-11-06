@@ -17,5 +17,15 @@
 		<input type="submit" value="login">
 	</form>
 </div>
+
+<div>
+	<h2>login page 2</h2>
+	<form action="${base}/token/doLogin2" method="post">
+		<input type="hidden" name="_ihome_form_token" value="${_ihome_form_token}">
+		<input type="text" name="name" value="">
+		<input type="text" name="password">
+		<input type="submit" value="login">
+	</form>
+</div>
 </body>
 </html>

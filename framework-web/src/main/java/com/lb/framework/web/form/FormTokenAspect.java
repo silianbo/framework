@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lb.framework.core.commons.OpResponse;
+import com.lb.framework.core.log.Log;
 import com.lb.framework.web.exception.WebErrors;
 
 @Aspect
@@ -21,8 +22,6 @@ public class FormTokenAspect {
 
     @Resource
     TokenManager formTokenManager;
-
-    public static final String TOKEN = "_ihome_form_token";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -39,8 +38,8 @@ public class FormTokenAspect {
         }
         // 检验token
         if (formToken.checkToken()) {
-            String token = request.getParameter(TOKEN);
-            logger.info(request.getParameterMap().toString());
+            String token = request.getParameter(TokenConst.TOKEN);
+            logger.info(Log.op("TOKEN_CHECK").msg("start to check").kv("token", token).toString());
             if (StringUtils.isBlank(token)) {
                 throw WebErrors.TOKEN_EMPTY.exp();
             }
@@ -49,7 +48,7 @@ public class FormTokenAspect {
             if (!checked) {
                 throw WebErrors.TOKEN_NOT_EXIST.exp();
             }
-            logger.debug("checkToken, token {} exist", token);
+            logger.info(Log.op("TOKEN_CHECK").msg("token exist").kv("token", token).toString());
             // 这里不返回,是因为有可能同1个方法既需要验证,又需要生成新的token,放在下面return
         }
         // 设置token
@@ -62,7 +61,7 @@ public class FormTokenAspect {
                 op.setToken(token);
             } else {
                 // 如果是返回到页面，则把token放到request.attribute中
-                request.setAttribute(TOKEN, token);
+                request.setAttribute(TokenConst.TOKEN, token);
             }
             return retValue;
         }

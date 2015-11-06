@@ -58,6 +58,7 @@
 		<property name="order" value="1" />
 		<property name="messageSource" ref="messageSource" />
 		<property name="restService" value="false" />
+		<property name="formTokenManager" ref="formTokenManager" />
 	</bean>
 
 	<bean id="messageSource"

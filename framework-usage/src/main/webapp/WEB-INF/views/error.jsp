@@ -5,6 +5,7 @@
 
 <h2>errorCode:${code}</h2>
 <h2>errorMessage:${message}</h2>
+<h2>token:${_ihome_form_token}</h2>
 
 </body>
 </html>

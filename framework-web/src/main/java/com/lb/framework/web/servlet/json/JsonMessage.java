@@ -25,6 +25,9 @@ public class JsonMessage {
 
 	/** 结果对象，可以为<code>NULL</code> */
 	private Object data;
+	
+	/** 表单防重复的token */
+	private String token;
 
 	public JsonMessage() {
 
@@ -75,4 +78,14 @@ public class JsonMessage {
 		this.data = data;
 		return this;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public JsonMessage setToken(String token) {
+		this.token = token;
+		return this;
+	}
+	
 }

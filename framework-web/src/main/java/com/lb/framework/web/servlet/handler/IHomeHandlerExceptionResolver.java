@@ -2,6 +2,7 @@ package com.lb.framework.web.servlet.handler;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lb.framework.core.exception.ApplicationException;
+import com.lb.framework.web.form.FormToken;
+import com.lb.framework.web.form.TokenConst;
+import com.lb.framework.web.form.TokenManager;
 import com.lb.framework.web.servlet.json.JsonMessage;
 import com.lb.framework.web.servlet.json.WebJsonUtil;
 
@@ -53,6 +58,8 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
     private String defaultErrorMessage = DEFAULT_ERROR_MESSAGE;
 
     private MessageSource messageSource;
+    
+    private TokenManager formTokenManager;
 
     /**
      * 默认处理所有异常,如果要有不同行为的话,可以在子类扩展
@@ -84,6 +91,10 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
         view.addObject(ERROR_CODE_ATTR_NAME, errorCode);
         view.addObject(ERROR_MESSAGE_ATTR_NAME, errorMessage);
 
+        // 生成防重复提交的token
+        if(generateToken(handler)) {
+            view.addObject(TokenConst.TOKEN, formTokenManager.newToken());
+        }
         return view;
     }
 
@@ -96,6 +107,11 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
         JsonMessage jsonMessage = createJsonMessage(request, ex);
         jsonMessage = decorateJsonMessage(jsonMessage, request, ex);
 
+        // 生成防重复提交的token
+        if(generateToken(handler)) {
+            jsonMessage.setToken(formTokenManager.newToken());
+        }
+        
         String text = WebJsonUtil.toJSONPString(jsonMessage);
         byte[] bytes = text.getBytes(UTF8);
 
@@ -164,7 +180,30 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
         }
         return retMessage;
     }
-
+    
+    /**
+     * 判断是否需要生成防重复提交的token
+     * @param handler
+     * @return
+     */
+    private boolean generateToken(Object handler) {
+        if(formTokenManager == null) {
+            return false;
+        }
+        if(handler instanceof HandlerMethod) {
+            HandlerMethod hm = (HandlerMethod) handler;
+            Method method = hm.getMethod();
+            FormToken formToken = method.getAnnotation(FormToken.class);
+            if(formToken == null) {
+                return false;
+            }
+            if(formToken.generateToken()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * @param errorViewName
      *            the errorViewName to set
@@ -195,5 +234,13 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
 
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
+    }
+    
+    public TokenManager getFormTokenManager() {
+        return formTokenManager;
+    }
+
+    public void setFormTokenManager(TokenManager formTokenManager) {
+        this.formTokenManager = formTokenManager;
     }
 }
