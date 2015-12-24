@@ -1,1 +1,2 @@
 dubboTrace=com.lb.framework.core.dubbo.DubboTraceFilter
+traceFilter=com.lb.framework.core.dubbo.govern.DubboTraceFilter

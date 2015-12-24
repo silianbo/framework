@@ -17,11 +17,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.lb.framework</groupId>
-			<artifactId>framework-core</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 		</dependency>
@@ -40,5 +35,12 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
+		
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<!-- logging end -->
 	</dependencies>
 </project>
