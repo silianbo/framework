@@ -13,9 +13,15 @@
 	<!-- consume服务 -->
 	<dubbo:reference interface="com.lb.framework.usage.service.IDubboTestService"
 		id="myDubboTestService" />
+	<dubbo:reference interface="com.lb.framework.usage.service.ITestFilterService"
+		id="myTestFilterService" />
 
 	<!-- provide服务 -->
-	<!-- <dubbo:service
+	<dubbo:service
 		interface="com.lb.framework.usage.service.IDubboTestService"
-		ref="dubboTestService" /> -->
+		ref="dubboTestService" />
+	
+	<dubbo:service
+		interface="com.lb.framework.usage.service.ITestFilterService"
+		ref="testFilterService" />
 </beans>

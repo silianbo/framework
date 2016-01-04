@@ -7,10 +7,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+
+import com.lb.framework.core.log.Log;
+import com.lb.framework.core.log.LogOp;
 
 /**
  * 默认的分布式会话管理器实现
@@ -110,6 +114,7 @@ public class DefaultDistributedSessionManager implements
 		DistributedSession distributedSession = distributedSessionDao
 				.getSession(sessionId);
 		if (null == distributedSession) {
+			logger.info(Log.op(LogOp.DIS_SESS).msg("distributed session is null").kv("sessionIdMD5", DigestUtils.md5Hex(sessionId)).toString());
 			return null;
 		}
 
@@ -128,7 +133,7 @@ public class DefaultDistributedSessionManager implements
 	public DistributedSession createSession(HttpServletRequest request,
 			HttpServletResponse response) {
 		String sessionId = createSessionId(request);
-
+		logger.info(Log.op(LogOp.DIS_SESS).msg("distributed session create").kv("sessionIdMD5", DigestUtils.md5Hex(sessionId)).toString());
 		DistributedSession distributedSession = new DistributedSession(
 				sessionId);
 		distributedSession.setCreationTime(System.currentTimeMillis());
@@ -205,7 +210,7 @@ public class DefaultDistributedSessionManager implements
 	public void invalidateSession(DistributedSession distributedSession,
 			HttpServletRequest request, HttpServletResponse response) {
 		distributedSessionDao.removeSession(distributedSession);
-
+		logger.info(Log.op(LogOp.DIS_SESS).msg("distributed session invalidate").kv("sessionIdMD5", DigestUtils.md5Hex(distributedSession.getId())).toString());
 		// 清除sessionid
 		storeSessionId(response, distributedSession.getId(), 0);
 	}

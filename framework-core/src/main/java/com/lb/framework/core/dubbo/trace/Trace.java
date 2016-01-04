@@ -329,4 +329,8 @@ public class Trace {
 	public Sampler getSampler() {
 		return sampler;
 	}
+	
+	public static void main(String[] args) {
+		
+	}
 }

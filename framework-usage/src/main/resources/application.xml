@@ -17,9 +17,9 @@
 	<!-- <import resource="classpath:framework-core/ihome-framework-mq.xml"/> -->
 	<import resource="classpath:framework-core/ihome-framework-redis.xml"/>
 	<import resource="classpath:framework-core/ihome-framework-validator.xml"/>
+	<import resource="classpath:framework-core/ihome-framework-dtrace.xml" />
 	<import resource="classpath:framework-web/ihome-framework-session.xml"/>
 	<import resource="classpath:framework-web/ihome-framework-token.xml" />
-	<import resource="classpath:framework-web/ihome-framework-dtrace.xml" />
 	
 	<import resource="classpath:beans/beans-*.xml" />
 	<aop:aspectj-autoproxy proxy-target-class="true"/>

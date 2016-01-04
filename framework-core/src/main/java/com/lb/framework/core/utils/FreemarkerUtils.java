@@ -32,7 +32,7 @@ public class FreemarkerUtils {
     private static final Logger logger = LoggerFactory.getLogger(FreemarkerUtils.class);
     private static final Configuration cfg = new Configuration();
     private static final Cache<String, Template> tempCache = CacheBuilder.newBuilder()
-            .expireAfterWrite(30, TimeUnit.MINUTES)
+            .expireAfterWrite(1, TimeUnit.HOURS)
             .build();
     
     static {

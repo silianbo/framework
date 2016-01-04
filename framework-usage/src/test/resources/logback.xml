@@ -94,7 +94,7 @@
 	</logger>
 
 	<root>
-		<level value="debug" />
+		<level value="info" />
 		
 		<!-- 开发时配置 -->
 		<appender-ref ref="stdoutAppender" />

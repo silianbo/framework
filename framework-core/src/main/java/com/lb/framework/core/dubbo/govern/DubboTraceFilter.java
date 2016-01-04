@@ -1,5 +1,6 @@
 package com.lb.framework.core.dubbo.govern;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -251,5 +252,27 @@ public class DubboTraceFilter  implements Filter{
         }
     }
  
+    /**
+     * 获取RPC调用上下文大小
+     * 
+     * @return
+     */
+    private int getRpcContextSize() {
+        int size = 0;
+        RpcContext context = RpcContext.getContext();
+        // attachments
+        Map<String, String> attachmentsMap = context.getAttachments();
+        if (attachmentsMap != null) {
+            for (Map.Entry<String, String> entry : attachmentsMap.entrySet()) {
+                size += stringLength(entry.getKey());
+                size += stringLength(entry.getValue());
+            }
+        }
+        return size;
+    }
+
+    private int stringLength(String str) {
+        return (str == null) ? 0 : str.length();
+    }
  
 }
