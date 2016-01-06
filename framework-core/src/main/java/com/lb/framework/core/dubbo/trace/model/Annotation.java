@@ -51,6 +51,11 @@ public class Annotation implements Serializable {
 				+ '}';
 	}
 
+	/**
+	 * cs（client send）、ss（server receive）、ss（server send）、cr（client receive）
+	 * @author lb825
+	 *
+	 */
 	public enum AnnType {
 		CS, CR, SS, SR
 	}
