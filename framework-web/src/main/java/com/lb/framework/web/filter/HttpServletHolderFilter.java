@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.lb.framework.core.log.LogConst;
@@ -20,7 +19,7 @@ import com.lb.framework.web.servlet.HttpServletHolder;
  * 
  * @author 464281
  */
-public class HttpServletHolderFilter extends OncePerRequestFilter {
+public class HttpServletHolderFilter extends BaseFilter {
 
 	/**
 	 * (non-Javadoc)

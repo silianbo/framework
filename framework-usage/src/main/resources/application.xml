@@ -22,5 +22,16 @@
 	<import resource="classpath:framework-web/ihome-framework-token.xml" />
 	
 	<import resource="classpath:beans/beans-*.xml" />
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:ErrorMessages</value>
+			</list>
+		</property>
+		<property name="cacheSeconds" value="5" />
+	</bean>
+	
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

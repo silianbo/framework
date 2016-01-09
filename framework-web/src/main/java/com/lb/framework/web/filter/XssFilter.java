@@ -25,7 +25,7 @@ public class XssFilter extends OncePerRequestFilter {
             return ;
         }
         XssFilterRequest newRequest = new XssFilterRequest(request);
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(newRequest, response);
     }
 
 }

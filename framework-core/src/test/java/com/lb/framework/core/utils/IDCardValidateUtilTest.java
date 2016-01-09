@@ -1,5 +1,7 @@
 package com.lb.framework.core.utils;
 
+import com.lb.framework.tools.util.IDCardValidateUtil;
+
 public class IDCardValidateUtilTest {
 
 	//@Test

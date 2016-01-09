@@ -9,13 +9,17 @@ import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 import javax.validation.executable.ExecutableValidator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.parameternameprovider.ParanamerParameterNameProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.lb.framework.core.exception.BusinessException;
+import com.lb.framework.core.log.Log;
 
 /**
  * 
@@ -23,6 +27,8 @@ import com.lb.framework.core.exception.BusinessException;
  */
 @Aspect
 public class ValidatorAspect {
+	
+	private static Logger logger = LoggerFactory.getLogger(ValidatorAspect.class);
 
     private ValidatorFactory validatorFactory;
     private ExecutableValidator executableValidator;
@@ -31,7 +37,7 @@ public class ValidatorAspect {
         if (validatorFactory == null) {
             validatorFactory = Validation.byProvider(HibernateValidator.class)
                     .configure()
-                    .failFast(true)
+                    .failFast(false)
                     .parameterNameProvider(new ParanamerParameterNameProvider())
                     .buildValidatorFactory();
         }
@@ -44,9 +50,12 @@ public class ValidatorAspect {
         Method method = ms.getMethod();
         Object target = pjp.getTarget();
         Object[] args = pjp.getArgs();
+        
         Set<ConstraintViolation<Object>> violations = executableValidator.validateParameters(target, method, args);
         if (!violations.isEmpty()) {
-            throw new BusinessException(getViolationMsg(violations));
+        	String message = getViolationMsg(violations);
+        	logger.error(Log.op("validator params").msg("invalid parameter").kv("message", message).toString());
+            throw new BusinessException(message);
         }
 
         Object retVal = pjp.proceed();
@@ -54,17 +63,14 @@ public class ValidatorAspect {
     }
 
     private String getViolationMsg(Set<ConstraintViolation<Object>> violations) {
-        StringBuilder sb = new StringBuilder();
-        Iterator<ConstraintViolation<Object>> iter = violations.iterator();
-        while (iter.hasNext()) {
-            ConstraintViolation<Object> cv = iter.next();
-            String argsName = cv.getPropertyPath().toString();
-            sb.append(argsName);
-            sb.append(cv.getMessage());
-            if (iter.hasNext()) {
-                sb.append(",");
-            }
-        }
-        return sb.toString();
+    	StringBuilder sb = new StringBuilder();
+    	for (Iterator<ConstraintViolation<Object>> iterator = violations.iterator(); iterator.hasNext();) {
+			ConstraintViolation<Object> constraintViolation = iterator.next();
+			String[] filedNames = constraintViolation.getPropertyPath().toString().split("\\.");
+			sb.append(filedNames[filedNames.length - 1]).append("[")
+				.append(constraintViolation.getInvalidValue()).append("]")
+					.append(constraintViolation.getMessage()).append(",");
+		}
+    	return StringUtils.removeEnd(sb.toString(), ",");
     }
 }

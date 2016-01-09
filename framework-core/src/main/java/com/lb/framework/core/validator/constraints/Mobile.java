@@ -28,7 +28,8 @@ import com.lb.framework.core.validator.MobileValidator;
 @Documented
 public @interface Mobile {
 
-    String message() default "不是有效的手机号:'${validatedValue}'";
+    // String message() default "不是有效的手机号:'${validatedValue}'";
+    String message() default "不是有效的手机号'";
 
     Class<?>[] groups() default {};
 

@@ -12,7 +12,7 @@ import com.alibaba.fastjson.serializer.JavaBeanSerializer;
 import com.alibaba.fastjson.serializer.PropertyPreFilter;
 import com.alibaba.fastjson.serializer.ValueFilter;
 import com.lb.framework.core.log.SensitiveObjectLogUtils.SensitiveObjectLogConvertorHolder;
-import com.lb.framework.core.utils.RegExValidateUtils;
+import com.lb.framework.tools.util.RegExValidateUtils;
 
 /**
  * 

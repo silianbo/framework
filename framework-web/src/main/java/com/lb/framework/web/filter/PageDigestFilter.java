@@ -1,8 +1,6 @@
 package com.lb.framework.web.filter;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
@@ -10,14 +8,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.alibaba.fastjson.JSON;
-import com.github.knightliao.apollo.utils.web.IpUtils;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.base.Strings;
+import com.lb.framework.core.log.Log;
+import com.lb.framework.core.log.LogOp;
+import com.lb.framework.web.util.WebUtil;
 
 /**
  * 请求摘要拦截器
@@ -29,7 +28,22 @@ import com.google.common.collect.Maps;
  */
 public class PageDigestFilter extends OncePerRequestFilter {
 
-    private static Logger logger = LoggerFactory.getLogger("PAGE-DIGEST");
+	private static Logger logger = LoggerFactory.getLogger("PAGE-DIGEST");
+
+    /**
+     * 参数值限制的最大打印字符数的默认值
+     */
+    public static final int DEFAULT_VALUE_LENGTH_LIMIT = 64;
+    
+    /**
+     * 设置不记录请求参数名的正则表达式. 例如: (?i).*(password|pwd|sign).*
+     */
+    private String ignoreParamPattern = "(?i).*(password|pwd|bankCard|CardNo|bindCardNo).*";
+
+    /**
+     * 参数值限制的最大打印字符数
+     */
+    private int valueLengthLimit = DEFAULT_VALUE_LENGTH_LIMIT;
 
     /**
      * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet.http.HttpServletRequest,
@@ -41,11 +55,12 @@ public class PageDigestFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         if (logger.isInfoEnabled()) {
             long startTime = System.currentTimeMillis();
+            logger.info(Log.op(LogOp.WEB_REQ).msg(params(request)).toString());
             try {
                 filterChain.doFilter(request, response);
             } finally {
                 long elapseTime = System.currentTimeMillis() - startTime;
-                logger.info(buildLog(request, elapseTime));
+                logger.info(Log.op(LogOp.WEB_RESP).msg(monitor(elapseTime, request)).toString());
             }
 
         } else {
@@ -54,61 +69,90 @@ public class PageDigestFilter extends OncePerRequestFilter {
     }
     
     /**
-     * 记录访问摘要信息日志
-     * (jsessionid)(ip)(accept)(UserAgent)(url)(method)(elapseTime)(params)(headers)(Referer)
-     *
-     * @param request
+     * 记录请求参数
+     * 
+     * @return 每个方法的请求参数组成的字符串
      */
-    public static String buildLog(HttpServletRequest request, long elapseTime) {
-        String jsessionId = request.getRequestedSessionId();
-        String ip = IpUtils.getIpAddr(request);
-        String accept = request.getHeader("accept");
-        String userAgent = request.getHeader("User-Agent");
-        String url = request.getRequestURI();
-        String method = request.getMethod();
-        String params = getParams(request);
-        String headers = getHeaders(request);
+    public String params(HttpServletRequest request) {
+        StringBuilder sb = new StringBuilder(256);
 
-        StringBuilder s = new StringBuilder();
-        s.append(getBlock(jsessionId));
-        s.append(getBlock(ip));
-        s.append(getBlock(accept));
-        s.append(getBlock(userAgent));
-        s.append(getBlock(url));
-        s.append(getBlock(method));
-        s.append(getBlock(elapseTime));
-        s.append(getBlock(params));
-        s.append(getBlock(headers));
-        s.append(getBlock(request.getHeader("Referer")));
-        return s.toString();
-    }
-    
-    public static String getBlock(Object msg) {
-        if (msg == null) {
-            msg = "";
+        String ip = WebUtil.getIpAddr(request);
+        String range = request.getHeader("Range");
+        range = Strings.emptyToNull(range);
+
+        sb.append("HttpRequest : ");
+        sb.append(ip).append(" ");
+        if (range != null) {
+            sb.append(range).append(" ");
         }
-        return "(" + msg.toString() + ")";
-    }
-    
-    @SuppressWarnings("unchecked")
-    protected static String getParams(HttpServletRequest request) {
-		Map<String, String[]> params = request.getParameterMap();
-        return JSON.toJSONString(params);
-    }
+        sb.append("params:{");
 
-    @SuppressWarnings("unchecked")
-    private static String getHeaders(HttpServletRequest request) {
-        Map<String, List<String>> headers = Maps.newHashMap();
-        Enumeration<String> namesEnumeration = request.getHeaderNames();
-        while(namesEnumeration.hasMoreElements()) {
-            String name = namesEnumeration.nextElement();
-            Enumeration<String> valueEnumeration = request.getHeaders(name);
-            List<String> values = Lists.newArrayList();
-            while(valueEnumeration.hasMoreElements()) {
-                values.add(valueEnumeration.nextElement());
+        Map params = request.getParameterMap();
+        int index = 0;
+        for (Object obj : params.keySet()) {
+            if (index > 0) {
+                sb.append(",");
             }
-            headers.put(name, values);
+            String key = (String) obj;
+            String[] value = (String[]) params.get(key);
+            if (StringUtils.isNotBlank(ignoreParamPattern) && key.matches(ignoreParamPattern)) {
+                sb.append(key).append("=").append("******");
+            } else if (value.length == 1) {
+                sb.append(key).append("=").append(valueByMask(value[0]));
+            } else {
+                sb.append(key).append("=[");
+                for(int i=0; i<value.length; i++) {
+                    sb.append(valueByMask(value[i]));
+                    if(i+1 <value.length) {
+                        sb.append(",");
+                    }
+                }
+                sb.append("]");
+            }
+            index++;
         }
-        return JSON.toJSONString(headers);
+        sb.append("}");
+        return sb.toString();
+    }
+    
+    private String valueByMask(String itemValue) {
+        if(itemValue.length() > valueLengthLimit) {
+            return itemValue.substring(0, valueLengthLimit) + "...";
+        } else {
+            return itemValue;
+        }
+    }
+
+    
+    /**
+     * 记录请求时间
+     * 
+     * @param execTime 请求执行时间
+     * @param request 请求体
+     * @return
+     */
+    public String monitor(long execTime, HttpServletRequest request) {
+        StringBuilder sb = new StringBuilder(80);
+        String ip = WebUtil.getIpAddr(request);
+        sb.append("HttpResponse: ");
+        sb.append(ip).append(" ");
+        sb.append("execTime:").append(execTime);
+        return sb.toString();
+    }
+
+    /**
+     * 设置不记录请求参数名的正则表达式. 例如: (?i).*(password|pwd|sign).*
+     * @param ignoreParamPattern 不记录请求参数名的正则表达式
+     */
+    public void setIgnoreParamPattern(String ignoreParamPattern) {
+        this.ignoreParamPattern = ignoreParamPattern;
+    }
+    
+    /**
+     * 设置参数值限制的最大打印字符数
+     * @param valueLengthLimit  参数值限制的最大打印字符数
+     */
+    public void setValueLengthLimit(int valueLengthLimit) {
+        this.valueLengthLimit = valueLengthLimit;
     }
 }

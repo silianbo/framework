@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 
+import com.lb.framework.core.commons.BaseConst;
 import com.lb.framework.web.servlet.json.JsonMessage;
 import com.lb.framework.web.servlet.json.WebJsonUtil;
 
@@ -19,11 +20,11 @@ import com.lb.framework.web.servlet.json.WebJsonUtil;
  * 处理指定异常，并且区分Json请求和非Json请求的异常处理，对于Json请求的异常处理，返回统一的Json信息，同时防篡改校验成功的请求，</br>
  * 重新生成一次表单
  * 
- * @author zhengxiaohong
+ * @author lb
  */
 public abstract class AbstractIHomeHandlerExceptionResolver extends AbstractHandlerExceptionResolver {
 
-	protected static final Charset UTF8 = Charset.forName("UTF-8");
+	protected static final Charset UTF8 = BaseConst.DEFAULT_CHARSET;
 
 	// private ServletAntiTamperFormManager servletAntiTamperFormManager;
 

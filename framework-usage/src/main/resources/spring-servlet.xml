@@ -33,7 +33,8 @@
 	<mvc:default-servlet-handler />
 	
 	<!-- 拦截器设置 -->
-	<bean id="formTokenManager" class="com.lb.framework.web.form.SessionTokenManager"></bean>
+	<!-- ihome-framework-token.xml已经配置无需再配 -->
+	<!-- <bean id="formTokenManager" class="com.lb.framework.web.form.SessionTokenManager"></bean> -->
 	
     <mvc:interceptors>
     	<!-- 重构成了使用切面做表单防止重复提交 -->
@@ -59,16 +60,6 @@
 		<property name="messageSource" ref="messageSource" />
 		<property name="restService" value="false" />
 		<property name="formTokenManager" ref="formTokenManager" />
-	</bean>
-
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>classpath:ErrorMessages</value>
-			</list>
-		</property>
-		<property name="cacheSeconds" value="5" />
 	</bean>
 
 	<!-- <bean

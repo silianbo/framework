@@ -2,7 +2,7 @@ package com.lb.framework.web.form;
 
 public interface TokenManager {
 
-	/**
+    /**
      * 分配新的token
      * @return
      */
@@ -21,4 +21,5 @@ public interface TokenManager {
      * @return
      */
     boolean checkAndDelToken(String token);
+    
 }

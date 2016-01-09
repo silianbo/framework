@@ -32,24 +32,39 @@ public class TestValidatorController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public void register(@RequestParam String email, @RequestParam String password, @RequestParam Long phoneNum) {
+    public void register(@RequestParam(required = false) String email, 
+    		@RequestParam(required = false) String password, @RequestParam(required = false) Long phoneNum) {
         usageService.register(email, password, phoneNum);
     }
     
     @RequestMapping("/login")
     @ResponseBody
-    public void login(@RequestParam String userName, @RequestParam String password) {
+    public void login(@RequestParam(required = false) String userName, @RequestParam(required = false) String password) {
         usageService.login(userName, password);
     }
     
-    @RequestMapping("/addProduct")
-    public void addProduct() {
+    @RequestMapping("/addProduct1")
+    public void addProduct1() {
         Product product = new Product();
         usageService.addProduct(product);
     }
     
-    @RequestMapping("/sendVerCode")
-    public String sendVerCode(@RequestParam String phone) {
+    @RequestMapping("/addProduct2")
+    @ResponseBody
+    public void addProduct2() {
+        Product product = new Product();
+        usageService.addProduct(product);
+    }
+    
+    @RequestMapping("/sendVerCode1")
+    public String sendVerCode1(@RequestParam String phone) {
+        usageService.sendVerCode(phone);
+        return "error";
+    }
+    
+    @RequestMapping("/sendVerCode2")
+    @ResponseBody
+    public String sendVerCode2(@RequestParam String phone) {
         usageService.sendVerCode(phone);
         return "error";
     }

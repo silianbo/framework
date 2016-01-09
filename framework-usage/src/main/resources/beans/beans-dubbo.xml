@@ -6,7 +6,7 @@
 	<dubbo:application name="framework-usage" owner="ct" />
 	<dubbo:registry address="zookeeper://10.166.224.32:2181" />
 	<dubbo:protocol name="dubbo" port="20882" />
-	<dubbo:monitor protocol="registry" />
+	<!-- <dubbo:monitor protocol="registry" /> -->
 	<dubbo:provider retries="3" timeout="100000" />
 	<dubbo:consumer check="false" />
 

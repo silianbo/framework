@@ -50,9 +50,9 @@ public class TestLogController {
 		// 1、异常的打印
 		try {
 			throw new IOException("xxxx");
-		} catch (IOException ex) {
+		} /*catch (IOException ex) {
 			throw new RuntimeException("find a ioException", ex);
-		} catch (RuntimeException ex) {
+		}*/ catch (Exception ex) {
             logger.error(Log.op("dbError").msg("write db error").kv("orderNum", "11111").toString(), ex);
 		}
 		return "index";

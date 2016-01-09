@@ -3,7 +3,7 @@ package com.lb.framework.core.http;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lb.framework.core.utils.ValidateUtils;
+import com.lb.framework.tools.util.ValidateUtils;
 
 public class Response {
 

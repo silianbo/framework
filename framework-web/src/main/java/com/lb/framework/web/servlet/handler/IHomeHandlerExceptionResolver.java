@@ -12,11 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lb.framework.core.exception.ApplicationException;
+import com.lb.framework.core.log.Log;
+import com.lb.framework.core.log.LogOp;
 import com.lb.framework.web.form.FormToken;
 import com.lb.framework.web.form.TokenConst;
 import com.lb.framework.web.form.TokenManager;
@@ -74,7 +75,7 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
      */
     @Override
     protected void recordException(Exception ex, HttpServletRequest request) {
-        logger.error("deal url fail [{}]", request.getRequestURI(), ex);
+        logger.error(Log.op(LogOp.EXP_RESOLVER_DEAL).msg("deal url fail").kv("url", request.getRequestURI()).toString(), ex);
     }
 
     /**
@@ -161,18 +162,29 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
      * @return
      */
     protected String getErrorMessage(String errorCode, HttpServletRequest request, Exception ex) {
-        String retMessage = null;
+    	String retMessage = null;
         if (ex instanceof ApplicationException) {
-            if (messageSource == null && StringUtils.isNotBlank(ex.getMessage())) {
-                retMessage = ex.getMessage();
+            if (messageSource == null) {
+               // 应用异常且不配置messageSource
+            	if(StringUtils.isNotBlank(ex.getMessage())){
+            		retMessage = ex.getMessage(); 
+            	}else {
+            		if(ex.getCause() != null){
+            			retMessage = ex.getCause().getMessage();  
+            		}else {
+            			retMessage = defaultErrorMessage; 
+	            		logger.error(Log.op(LogOp.EXP_RESOLVER_FAIL).msg(ex.getClass().getSimpleName()+" no message").kv("code", errorCode).toString(), ex);
+            		}
+            	}
             } else {
+                // 应用异常且配置了messageSource
                 ApplicationException ae = (ApplicationException) ex;
                 try {
-                    retMessage = messageSource.getMessage(errorCode, ae.getArgs(), LocaleContextHolder.getLocale());
+                    retMessage = messageSource.getMessage(errorCode, ae.getArgs(), null);
                 } catch (NoSuchMessageException nmex) {
-                    logger.info("errorCode not in messageSource", nmex);
-                    retMessage = ex.getMessage();
-                	retMessage = StringUtils.isBlank(retMessage) ? defaultErrorMessage : retMessage;
+                    logger.warn(Log.op(LogOp.EXP_RESOLVER_FAIL).msg("errorCode not in messageSource").kv("code", errorCode).toString(), nmex);
+                    // 配置文件中没有的,就直接采用原来的错误信息
+                    retMessage = ae.getMessage();
                 }
             }
         } else {

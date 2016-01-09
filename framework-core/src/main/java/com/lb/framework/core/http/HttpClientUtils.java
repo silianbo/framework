@@ -30,7 +30,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lb.framework.core.utils.ValidateUtils;
+import com.lb.framework.tools.util.ValidateUtils;
 
 /**
  * HttpClient的封装

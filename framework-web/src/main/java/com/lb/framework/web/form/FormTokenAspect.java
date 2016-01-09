@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lb.framework.core.commons.OpResponse;
 import com.lb.framework.core.log.Log;
+import com.lb.framework.core.log.LogOp;
 import com.lb.framework.web.exception.WebErrors;
+import com.lb.framework.web.servlet.json.JsonMessage;
 
 @Aspect
 public class FormTokenAspect {
@@ -39,35 +41,52 @@ public class FormTokenAspect {
         // 检验token
         if (formToken.checkToken()) {
             String token = request.getParameter(TokenConst.TOKEN);
-            logger.info(Log.op("TOKEN_CHECK").msg("start to check").kv("token", token).toString());
+            logger.info(Log.op(LogOp.TOKEN_CHECK).msg("start to check").kv("token", token).toString());
             if (StringUtils.isBlank(token)) {
                 throw WebErrors.TOKEN_EMPTY.exp();
             }
-            // TODO 需要考虑分布式并发的情况
             boolean checked = formTokenManager.checkAndDelToken(token);
             if (!checked) {
                 throw WebErrors.TOKEN_NOT_EXIST.exp();
             }
-            logger.info(Log.op("TOKEN_CHECK").msg("token exist").kv("token", token).toString());
-            // 这里不返回,是因为有可能同1个方法既需要验证,又需要生成新的token,放在下面return
+            logger.info(Log.op(LogOp.TOKEN_CHECK).msg("token exist").kv("token", token).toString());
+            // 如果只配置了checkToken，但是没配置generateToken，如果返回的是业务异常的话，也需要重新返回token
+            // 跟直接配置@FormToken(checkToken=true, generateToken=true)相比，会少生成一些token，节省nkv内存
+            if(!formToken.generateToken()) {
+                return processNewToken(pjp);
+            }
         }
         // 设置token
         if(formToken.generateToken()) {
-            String token = formTokenManager.newToken();
-            Object retValue = pjp.proceed();
-            logger.debug("generateToken, token {}", token);
-            if(retValue instanceof OpResponse) {
-                OpResponse op = (OpResponse)retValue;
-                op.setToken(token);
-            } else {
-                // 如果是返回到页面，则把token放到request.attribute中
-                request.setAttribute(TokenConst.TOKEN, token);
-            }
-            return retValue;
+            return processNewToken(pjp);
         }
         return pjp.proceed();
     }
-
+    
+    /**
+     * 生成新的token
+     * @param pjp
+     * @param checkCode 是否判断返回码，false则不判断直接生成token，true则判断到为错误码的时候才生成token
+     * @return
+     * @throws Throwable
+     */
+    private Object processNewToken(ProceedingJoinPoint pjp) throws Throwable {
+    	Object retValue = pjp.proceed();
+        String token = formTokenManager.newToken();
+        logger.info(Log.op(LogOp.TOKEN_GEN).kv("token", token).toString());
+        if (retValue instanceof OpResponse) {
+            OpResponse op = (OpResponse) retValue;
+            op.setToken(token);
+        } else if (retValue instanceof JsonMessage) {
+            JsonMessage jsonMessage = (JsonMessage) retValue;
+            jsonMessage.setToken(token);
+        } else {
+            // 如果是返回到页面，则把token放到request.attribute中
+            request.setAttribute(TokenConst.TOKEN, token);
+        }
+        return retValue;
+    }
+    
     public void setFormTokenManager(TokenManager formTokenManager) {
         this.formTokenManager = formTokenManager;
     }

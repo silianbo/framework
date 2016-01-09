@@ -9,14 +9,20 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.util.WebUtils;
 
+
 /**
  * web层工具类
  * 
- * @author 464281
+ * @author lb
  * @version $Id: WebUtil.java 2014-5-27 下午3:05:58 $
  */
 public class WebUtil extends WebUtils {
 
+    /**
+     * unknown
+     */
+    public static final String UNKNOWN = "unknown";
+    
     /**
      * 获取请求url上指定参数名对应的参数值
      * <p>
@@ -77,5 +83,36 @@ public class WebUtil extends WebUtils {
         } else {
             return requestUri + '?' + queryString;
         }
+    }
+
+    /**
+     * 获取ip地址
+     */
+    public static final String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+
+        if(StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("http_client_ip");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-Real-IP");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        // 如果是多级代理，那么取第一个ip为客户ip
+        if (StringUtils.isNotBlank(ip) && ip.indexOf(",") != -1) {
+            ip = ip.substring(ip.lastIndexOf(",") + 1, ip.length()).trim();
+        }
+        return ip;
     }
 }
