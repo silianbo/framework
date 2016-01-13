@@ -33,5 +33,7 @@
 		<property name="cacheSeconds" value="5" />
 	</bean>
 	
+	<bean id="springUtils" class="com.lb.framework.core.utils.SpringUtils"/>
+	
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

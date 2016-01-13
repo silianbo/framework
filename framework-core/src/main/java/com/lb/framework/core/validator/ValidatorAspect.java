@@ -2,7 +2,9 @@ package com.lb.framework.core.validator;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -20,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import com.lb.framework.core.exception.BusinessException;
 import com.lb.framework.core.log.Log;
+import com.lb.framework.core.utils.MessageUtils;
 
 /**
  * 
@@ -66,11 +69,32 @@ public class ValidatorAspect {
     	StringBuilder sb = new StringBuilder();
     	for (Iterator<ConstraintViolation<Object>> iterator = violations.iterator(); iterator.hasNext();) {
 			ConstraintViolation<Object> constraintViolation = iterator.next();
+			
+			/*for (Map.Entry<String, Object> entry : constraintViolation.getConstraintDescriptor().getAttributes().entrySet()) {
+				String attributeName = entry.getKey();
+				Object attributeValue = entry.getValue();
+				System.err.println(attributeName + "---" + attributeValue);
+			}
+			System.err.println("errorcode:" + constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName());*/
+			
 			String[] filedNames = constraintViolation.getPropertyPath().toString().split("\\.");
+			//String filedName = Pattern.compile("^arg\\d+$").matcher(filedNames[0]).matches() ? filedNames[1] :filedNames[0]; 
 			sb.append(filedNames[filedNames.length - 1]).append("[")
 				.append(constraintViolation.getInvalidValue()).append("]")
-					.append(constraintViolation.getMessage()).append(",");
+					.append(resovleMessage(constraintViolation.getMessage())).append(",");
 		}
     	return StringUtils.removeEnd(sb.toString(), ",");
     }
+    
+    private String resovleMessage(String message) {
+    	if(StringUtils.startsWith(message, "{")) {
+    		return MessageUtils.message(StringUtils.removeEnd(StringUtils.removeStart(message, "{"), "}"));
+    	} else {
+    		return message;
+    	}
+    }
+    
+    public static void main(String[] args) {
+    	System.err.println(Pattern.compile("^arg\\d+$").matcher("arg110").matches());
+	}
 }

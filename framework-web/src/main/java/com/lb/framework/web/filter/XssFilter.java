@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.lb.framework.web.filter.logic.XssFilterRequest;
+
 /**
  * 防御XSS的输入过滤器
  * @author lb

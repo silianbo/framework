@@ -73,7 +73,7 @@ public class PageDigestFilter extends OncePerRequestFilter {
      * 
      * @return 每个方法的请求参数组成的字符串
      */
-    public String params(HttpServletRequest request) {
+	public String params(HttpServletRequest request) {
         StringBuilder sb = new StringBuilder(256);
 
         String ip = WebUtil.getIpAddr(request);
@@ -87,7 +87,8 @@ public class PageDigestFilter extends OncePerRequestFilter {
         }
         sb.append("params:{");
 
-        Map params = request.getParameterMap();
+        @SuppressWarnings("rawtypes")
+		Map params = request.getParameterMap();
         int index = 0;
         for (Object obj : params.keySet()) {
             if (index > 0) {

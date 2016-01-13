@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -179,17 +180,40 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
             } else {
                 // 应用异常且配置了messageSource
                 ApplicationException ae = (ApplicationException) ex;
-                try {
-                    retMessage = messageSource.getMessage(errorCode, ae.getArgs(), null);
-                } catch (NoSuchMessageException nmex) {
-                    logger.warn(Log.op(LogOp.EXP_RESOLVER_FAIL).msg("errorCode not in messageSource").kv("code", errorCode).toString(), nmex);
-                    // 配置文件中没有的,就直接采用原来的错误信息
+                
+                Class<?> clz = ae.getClass();
+                String msgKey = errorCode;
+                
+                // 直接用errorCode去取
+                retMessage = getMessageFromSource(msgKey, ae);
+                // 用"com.ihome.framework.usage.exception.FrameworkUsageException.CustomerException.errorCode"的形式去取
+                if (retMessage == null) {
+                    msgKey = clz.getName() + "." + errorCode;
+                    retMessage = getMessageFromSource(msgKey, ae);
+                }
+                // 用"CustomerException.errorCode"的形式去取
+                if(retMessage == null) {
+                    msgKey = clz.getSimpleName() + "." + errorCode;
+                    retMessage = getMessageFromSource(msgKey, ae);
+                }
+                // 配置文件中没有的,就直接采用原来的错误信息
+                if(retMessage == null) {
                     retMessage = ae.getMessage();
                 }
             }
         } else {
             retMessage = defaultErrorMessage;
         }
+        return retMessage;
+    }
+    
+    private String getMessageFromSource(String errorCode, ApplicationException ae) {
+        String retMessage = null;
+        try {
+            retMessage = messageSource.getMessage(errorCode, ae.getArgs(), LocaleContextHolder.getLocale());
+        } catch (NoSuchMessageException nmex) {
+            logger.warn(Log.op(LogOp.EXP_RESOLVER_FAIL).msg("errorCode not in messageSource").kv("code", errorCode).toString());
+        }        
         return retMessage;
     }
     
