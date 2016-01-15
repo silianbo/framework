@@ -102,12 +102,21 @@ public class IDCardValidateUtil {
 		result[0] = Boolean.TRUE;
 		//先用正则匹配
 		Boolean isValid = checkByRegEx(idCard, result);
+		if(!isValid){
+			return result;
+		}
 		//截取前17位，如果是15位，在78位插入19后再截取
 		String innerIDCard = subIdCard(idCard, isValid);
 		//生日校验
 		isValid = checkBirthDay(innerIDCard, result, isValid);
+		if(!isValid){
+			return result;
+		}
 		//地区校验，只校验第一级地区码
 		isValid = checkAreaCode(innerIDCard, result, isValid);
+		if(!isValid){
+			return result;
+		}
 		//校验校验码
 		isValid = checkCheckCode(idCard, result, isValid);
 		return result;
@@ -124,6 +133,7 @@ public class IDCardValidateUtil {
 	}
 	
 	private static Boolean checkCheckCode(String idCard, Object[] result, Boolean isValid) {
+		if(idCard != null && idCard.length() <=  15) return isValid;
 		if (isValid) {
 			int sumAiWi = 0;
 			

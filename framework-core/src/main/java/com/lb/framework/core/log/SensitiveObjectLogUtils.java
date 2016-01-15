@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicLongArray;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializeWriter;
@@ -51,8 +52,11 @@ import com.lb.framework.core.log.sensitive.SensitiveIDCard;
 import com.lb.framework.core.log.sensitive.SensitiveIgnoreOut;
 import com.lb.framework.core.log.sensitive.SensitiveMobile;
 import com.lb.framework.core.utils.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public  abstract class SensitiveObjectLogUtils {
+	private static final Logger logger = LoggerFactory.getLogger(SensitiveObjectLogUtils.class);
 
 	private static final Set<Class<?>> excludeConvert = new HashSet<>(); 
 	static {
@@ -353,7 +357,16 @@ public  abstract class SensitiveObjectLogUtils {
 	            serializer.write(object);
 
 	            return out.toString();
-	        } finally {
+	        } catch(Exception ex){
+				logger.error(Log.op(SensitiveObjectLogUtils.class.getSimpleName()+".toJSONString exception")
+					.kv("exception", ex.getMessage()).toString(), ex);
+				try{
+					return JSON.toJSONString(object);
+				}catch(Exception e) {
+					//^_^ you're unlucky....
+					return String.valueOf(object);
+				}
+			}finally {
 	            out.close();
 	        }
 		}

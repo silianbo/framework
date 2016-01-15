@@ -101,24 +101,33 @@ public class Log {
 	 * @return
 	 */
 	public Log kv(String key, Object value, ConvertorTypeEnum type){
-		switch (type) {
-		case EMAIL:
-			return kvOfEmail(key, value); 
-		case MOBILE: 
-			return kvOfMobile(key, value); 
-		case TELEPHONE: 
-			return kvOfPhone(key, value); 
-		case IDCARD: 
-			return kvOfIDCard(key, value); 
-		case BANKCARD:
-			return kvOfBankCard(key, value);
-		case OBJECT: 
-			return kvOfObject(key, value);
-		case DEFAULT:
-		case CUSTOME_DEFINE:
-		case IDENTITY:
-		default:
-			return kvOfIdentity(key, value);
+		try{
+			switch (type) {
+				case EMAIL:
+					return kvOfEmail(key, value);
+				case MOBILE:
+					return kvOfMobile(key, value);
+				case TELEPHONE:
+					return kvOfPhone(key, value);
+				case IDCARD:
+					return kvOfIDCard(key, value);
+				case BANKCARD:
+					return kvOfBankCard(key, value);
+				case OBJECT:
+					return kvOfObject(key, value);
+				case DEFAULT:
+				case CUSTOME_DEFINE:
+				case IDENTITY:
+				default:
+					return kvOfIdentity(key, value);
+			}
+		}catch(Throwable ex){
+			if(isSensInfoCryptoEnable()){
+				params.put(key, CryptoConvertConfig.getDefault(CryptoConvertConfig.DEFAULT_CONVERT).convert(value));
+			}else {
+				params.put(key, value);
+			}
+			return this;
 		}
 	}
 
@@ -130,7 +139,16 @@ public class Log {
 	 * @return
 	 */
 	public Log kv(String key, Object value, ICryptoConvertor convertor){
-		return kvOfCrypto(key, value, convertor);
+		try{
+			return kvOfCrypto(key, value, convertor);
+		}catch(Throwable ex){
+			if(isSensInfoCryptoEnable()){
+				params.put(key, CryptoConvertConfig.getDefault(CryptoConvertConfig.DEFAULT_CONVERT).convert(value));
+			}else {
+				params.put(key, value);
+			}
+			return this;
+		}
 	}
 	private Log kvOfObject(String key, Object value){
 		if(isSensInfoCryptoEnable()){
