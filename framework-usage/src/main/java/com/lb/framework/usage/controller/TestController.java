@@ -43,7 +43,16 @@ public class TestController {
     @ResponseBody
     public List<Product> plist() {
         List<Product> list = Lists.newArrayList();
-        list.add(new Product(111, "pone"));
+        list.add(new Product(11111, "pone1"));
+        list.add(new Product(222, "ptwo"));
+        return list;
+    }
+
+    @RequestMapping("/list1")
+    @ResponseBody
+    public List<Product> plist1() {
+        List<Product> list = Lists.newArrayList();
+        list.add(new Product(11111, "pone1"));
         list.add(new Product(222, "ptwo"));
         return list;
     }
