@@ -70,7 +70,7 @@ a img {
 .module {
     padding: 25px;
     background: #ffffff;
-    margin-top: 35px;
+    margin-top: 30px;
     margin-bottom: 35px;
     position: relative;
     overflow: hidden;
@@ -87,6 +87,22 @@ a img {
     color: #999;
     margin: 5px 0;
 }
+
+.ace-nav {
+    padding-left: 50px;
+}
+.ace-nav > li {
+    border: none;
+    padding: 0 10px;
+}
+.ace-nav > li > a {
+    background-color: #438eb9;
+}
+
+
+
+
+
 
 .tab_ul{
     line-height:30px;
