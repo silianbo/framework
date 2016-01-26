@@ -1,4 +1,4 @@
-package com.lb.framework.core.dubbo.trace.support;
+package com.github.sunflowerlb.framework.core.dubbo.trace.support;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
-import com.lb.framework.core.dubbo.trace.model.IdTypeEnums;
+import com.github.sunflowerlb.framework.core.dubbo.trace.model.IdTypeEnums;
 
 /**
  * <pre>

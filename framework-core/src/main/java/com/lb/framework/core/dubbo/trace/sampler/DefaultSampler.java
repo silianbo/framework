@@ -1,4 +1,4 @@
-package com.lb.framework.core.dubbo.trace.sampler;
+package com.github.sunflowerlb.framework.core.dubbo.trace.sampler;
 
 import java.util.Random;
 

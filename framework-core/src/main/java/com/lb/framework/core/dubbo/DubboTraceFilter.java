@@ -1,4 +1,4 @@
-package com.lb.framework.core.dubbo;
+package com.github.sunflowerlb.framework.core.dubbo;
 
 import java.util.Map;
 
@@ -13,8 +13,8 @@ import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Result;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcException;
-import com.lb.framework.core.log.LogConst;
-import com.lb.framework.core.log.LogTools;
+import com.github.sunflowerlb.framework.core.log.LogConst;
+import com.github.sunflowerlb.framework.core.log.LogTools;
 
 /**
  * 实现在dubbo调用的时候，在attachments中加上该次调用的uniqueId

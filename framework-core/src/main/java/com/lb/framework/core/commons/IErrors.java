@@ -1,6 +1,6 @@
-package com.lb.framework.core.commons;
+package com.github.sunflowerlb.framework.core.commons;
 
-import com.lb.framework.core.exception.ApplicationException;
+import com.github.sunflowerlb.framework.core.exception.ApplicationException;
 
 /**
  * 错误枚举的接口类

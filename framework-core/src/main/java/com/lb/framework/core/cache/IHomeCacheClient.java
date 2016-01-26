@@ -1,4 +1,4 @@
-package com.lb.framework.core.cache;
+package com.github.sunflowerlb.framework.core.cache;
 
 /**
  * 缓存客户端的接口，定义了几个基本的操作

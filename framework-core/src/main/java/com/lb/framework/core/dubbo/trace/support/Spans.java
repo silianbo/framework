@@ -1,6 +1,6 @@
-package com.lb.framework.core.dubbo.trace.support;
+package com.github.sunflowerlb.framework.core.dubbo.trace.support;
 
-import com.lb.framework.core.dubbo.trace.model.Annotation;
+import com.github.sunflowerlb.framework.core.dubbo.trace.model.Annotation;
 
 /**
  * <pre>

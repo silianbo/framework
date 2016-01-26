@@ -1,4 +1,4 @@
-package com.lb.framework.core.dubbo.trace.utils;
+package com.github.sunflowerlb.framework.core.dubbo.trace.utils;
 
 import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.Invoker;

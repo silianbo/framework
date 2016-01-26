@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.lb.framework</groupId>
+    <groupId>com.github.sunflowerlb.framework</groupId>
     <artifactId>framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -17,7 +17,7 @@
 	<dependencies>
 		
 		<dependency>
-			<groupId>com.lb.framework</groupId>
+			<groupId>com.github.sunflowerlb.framework</groupId>
 			<artifactId>framework-tools</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>

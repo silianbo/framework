@@ -1,4 +1,4 @@
-package com.lb.framework.core.commons;
+package com.github.sunflowerlb.framework.core.commons;
 
 import java.io.Serializable;
 

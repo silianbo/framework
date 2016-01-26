@@ -1,6 +1,6 @@
-package com.lb.framework.core.dubbo.trace;
+package com.github.sunflowerlb.framework.core.dubbo.trace;
 
-import com.lb.framework.core.dubbo.trace.model.Span;
+import com.github.sunflowerlb.framework.core.dubbo.trace.model.Span;
 
 public class TraceContext {
 

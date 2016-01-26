@@ -1,4 +1,4 @@
-package com.lb.framework.core.cache;
+package com.github.sunflowerlb.framework.core.cache;
 
 /**
  * 缓存异常

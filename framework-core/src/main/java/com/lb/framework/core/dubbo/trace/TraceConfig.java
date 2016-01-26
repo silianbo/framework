@@ -1,4 +1,4 @@
-package com.lb.framework.core.dubbo.trace;
+package com.github.sunflowerlb.framework.core.dubbo.trace;
 
 /**
  * <pre>
