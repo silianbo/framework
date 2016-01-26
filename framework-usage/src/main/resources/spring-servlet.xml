@@ -8,7 +8,7 @@
       					http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
       					http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<context:component-scan base-package="com.lb.framework.usage"
+	<context:component-scan base-package="com.github.sunflowerlb.framework.usage"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -34,13 +34,13 @@
 	
 	<!-- 拦截器设置 -->
 	<!-- ihome-framework-token.xml已经配置无需再配 -->
-	<!-- <bean id="formTokenManager" class="com.lb.framework.web.form.SessionTokenManager"></bean> -->
+	<!-- <bean id="formTokenManager" class="com.github.sunflowerlb.framework.web.form.SessionTokenManager"></bean> -->
 	
     <mvc:interceptors>
     	<!-- 重构成了使用切面做表单防止重复提交 -->
     	<!-- <mvc:interceptor>
     		<mvc:mapping path="/**" />
-	    	<bean id="formTokenInterceptor" class="com.lb.framework.web.form.FormTokenInterceptor">
+	    	<bean id="formTokenInterceptor" class="com.github.sunflowerlb.framework.web.form.FormTokenInterceptor">
 				<property name="formTokenManager" >
 					<ref bean="formTokenManager"/>
 				</property>
@@ -49,12 +49,12 @@
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <!-- <mvc:exclude-mapping path="/admin/polling"/> -->
-            <bean class="com.lb.framework.usage.interceptor.RequestInterceptor"/>
+            <bean class="com.github.sunflowerlb.framework.usage.interceptor.RequestInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
     
 	<bean id="exceptionHandler"
-		class="com.lb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
+		class="com.github.sunflowerlb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
 		<!-- order设置为1，可以拦截Spring处理@RequestParam的异常 -->
 		<property name="order" value="1" />
 		<property name="messageSource" ref="messageSource" />

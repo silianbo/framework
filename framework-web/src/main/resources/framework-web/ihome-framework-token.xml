@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- 默认token用Session管理，如果用Redis开启下面redis的配置，并注释掉Session的配置 -->
-	<!-- <bean id="formTokenManager" class="com.lb.framework.web.form.SessionTokenManager"></bean> -->
+	<!-- <bean id="formTokenManager" class="com.github.sunflowerlb.framework.web.form.SessionTokenManager"></bean> -->
 	<!-- 使用redis管理token用下面配置，记得引入ihome-framework-redis.xml配置 -->
-	<bean id="formTokenManager" class="com.lb.framework.web.form.RedisTokenManager"></bean>
+	<bean id="formTokenManager" class="com.github.sunflowerlb.framework.web.form.RedisTokenManager"></bean>
 
-	<bean id="formTokenAspect" class="com.lb.framework.web.form.FormTokenAspect">
+	<bean id="formTokenAspect" class="com.github.sunflowerlb.framework.web.form.FormTokenAspect">
 		<property name="formTokenManager" ref="formTokenManager" />
 	</bean>
 </beans>

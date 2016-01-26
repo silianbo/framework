@@ -16,11 +16,11 @@
 
 	<!-- provide服务 -->
 	<dubbo:service
-		interface="com.lb.framework.usage.service.IDubboTestService"
+		interface="com.github.sunflowerlb.framework.usage.service.IDubboTestService"
 		ref="dubboTestService" />
 	
 	<dubbo:service
-		interface="com.lb.framework.usage.service.ITestFilterService"
+		interface="com.github.sunflowerlb.framework.usage.service.ITestFilterService"
 		ref="testFilterService" />
 		
 </beans>

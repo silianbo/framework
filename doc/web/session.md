@@ -20,10 +20,10 @@
 - 该配置文件中定义了id为`distributedSessionFilter`的bean，可以在filter的配置中直接加上
 
 
-	<bean id="compositeFilter" class="com.lb.framework.web.filter.CompositeFilter">
+	<bean id="compositeFilter" class="com.github.sunflowerlb.framework.web.filter.CompositeFilter">
 		<property name="filters">
 			<list>
-				<bean class="com.lb.framework.web.filter.PageDigestFilter" />
+				<bean class="com.github.sunflowerlb.framework.web.filter.PageDigestFilter" />
 				<ref bean="distributedSessionFilter" />
 			</list>
 		</property>
@@ -47,11 +47,11 @@
 
 ihome-framework-session.xml中实际上只是定义了1个bean而已，若参数不满足应用需求，应用也可以自定义
 	
-	<bean id="distributedSessionFilter" class="com.lb.framework.web.session.DistributedSessionFilter">
+	<bean id="distributedSessionFilter" class="com.github.sunflowerlb.framework.web.session.DistributedSessionFilter">
 	<property name="distributedSessionManager">
-		<bean class="com.lb.framework.web.session.DefaultDistributedSessionManager">
+		<bean class="com.github.sunflowerlb.framework.web.session.DefaultDistributedSessionManager">
 			<property name="distributedSessionDao">
-				<bean class="com.lb.framework.web.session.RedisSessionDao">
+				<bean class="com.github.sunflowerlb.framework.web.session.RedisSessionDao">
 					<property name="redisCacheManager">
 						<ref bean="redisCacheManager" />
 					</property>

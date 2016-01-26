@@ -9,7 +9,7 @@
       					http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
       					
 	<!-- 使用disConf的话,scanPackage需要加上com.baidu -->
-	<context:component-scan base-package="com.lb.framework.usage,com.baidu">
+	<context:component-scan base-package="com.github.sunflowerlb.framework.usage,com.baidu">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
@@ -33,7 +33,7 @@
 		<property name="cacheSeconds" value="5" />
 	</bean>
 	
-	<bean id="springUtils" class="com.lb.framework.core.utils.SpringUtils"/>
+	<bean id="springUtils" class="com.github.sunflowerlb.framework.core.utils.SpringUtils"/>
 	
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

@@ -24,11 +24,11 @@
 		</property>
 	</bean>
 
-	<bean id="distributedSessionFilter" class="com.lb.framework.web.session.DistributedSessionFilter">
+	<bean id="distributedSessionFilter" class="com.github.sunflowerlb.framework.web.session.DistributedSessionFilter">
 	<property name="distributedSessionManager">
-		<bean class="com.lb.framework.web.session.DefaultDistributedSessionManager">
+		<bean class="com.github.sunflowerlb.framework.web.session.DefaultDistributedSessionManager">
 			<property name="distributedSessionDao">
-				<bean class="com.lb.framework.web.session.RedisSessionDao">
+				<bean class="com.github.sunflowerlb.framework.web.session.RedisSessionDao">
 					<property name="redisCacheManager">
 						<ref bean="redisCacheManager" />
 					</property>

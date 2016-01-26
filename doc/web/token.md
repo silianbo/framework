@@ -19,7 +19,7 @@
 主要配置一下要拦截的方法，指定aspect
 
 	<aop:config>
-		<aop:pointcut id="formTokenPointCut" expression="execution(* com.lb.framework.usage.controller..*.*(..))" />
+		<aop:pointcut id="formTokenPointCut" expression="execution(* com.github.sunflowerlb.framework.usage.controller..*.*(..))" />
 
 		<aop:aspect ref="formTokenAspect">
 			<aop:around method="aroundAdvice" pointcut-ref="formTokenPointCut" />

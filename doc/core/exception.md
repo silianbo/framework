@@ -53,9 +53,9 @@ T 这个泛型主要是方便应用指定自己的返回类型，可以直接将
 
 一些实现的demo：
 
-- 枚举类的实现：framework-usage的`com.lb.framework.usage.exception.ErrCode`
-- 枚举类的包装类：framework-core的`com.lb.framework.core.commons.OpResponse`
-- 抛出异常的实例：framework-usage的`com.lb.framework.usage.controller.TestExceptionController`
+- 枚举类的实现：framework-usage的`com.github.sunflowerlb.framework.usage.exception.ErrCode`
+- 枚举类的包装类：framework-core的`com.github.sunflowerlb.framework.core.commons.OpResponse`
+- 抛出异常的实例：framework-usage的`com.github.sunflowerlb.framework.usage.controller.TestExceptionController`
 
 使用枚举类的代码示例：
 
@@ -117,7 +117,7 @@ T 这个泛型主要是方便应用指定自己的返回类型，可以直接将
 
 默认的配置：
 
-    <bean id="exceptionHandler" class="com.lb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
+    <bean id="exceptionHandler" class="com.github.sunflowerlb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
 	    <property name="restService" value="false"/>
     	<property name="defaultErrorCode" value="500"/>
     	<property name="defaultErrorMessage" value="系统错误"/>
@@ -131,10 +131,10 @@ T 这个泛型主要是方便应用指定自己的返回类型，可以直接将
 
 如果默认的配置都满足你的需求，可以使用最简配置：
 
-    <bean id="exceptionHandler" class="com.lb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
+    <bean id="exceptionHandler" class="com.github.sunflowerlb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
     </bean>
 
-完整的示例代码见：framework-usage的`com.lb.framework.usage.controller.TestExceptionController`
+完整的示例代码见：framework-usage的`com.github.sunflowerlb.framework.usage.controller.TestExceptionController`
 
 MessageSouce的配置
 
@@ -149,7 +149,7 @@ MessageSouce的配置
 	</bean>
 
 	<bean id="exceptionHandler"
-		class="com.lb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
+		class="com.github.sunflowerlb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
 		<property name="messageSource" ref="messageSource"/>
 	</bean>
 

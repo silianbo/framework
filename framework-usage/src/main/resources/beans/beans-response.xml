@@ -6,10 +6,10 @@
       					http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
       					http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean id="responseAspect" class="com.lb.framework.web.aspect.ResponseAspect" />
+	<bean id="responseAspect" class="com.github.sunflowerlb.framework.web.aspect.ResponseAspect" />
 	<aop:config>
 		<aop:pointcut id="responsePointCut" 
-			expression="execution(* com.lb.framework.usage..*.*(..))" />
+			expression="execution(* com.github.sunflowerlb.framework.usage..*.*(..))" />
 		<aop:aspect ref="responseAspect">
 			<aop:around method="aroundAdvice" pointcut-ref="responsePointCut" />
 		</aop:aspect>

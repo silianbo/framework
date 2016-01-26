@@ -6,11 +6,11 @@
 
 1.增加两个filter(HttpServletHolderFilter和LoggerMDCFilter)：
 
-	<bean id="compositeFilter" class="com.lb.framework.web.filter.CompositeFilter">
+	<bean id="compositeFilter" class="com.github.sunflowerlb.framework.web.filter.CompositeFilter">
 		<property name="filters">
 			<list>
-				<bean class="com.lb.framework.web.filter.HttpServletHolderFilter"/>
-				<bean class="com.lb.framework.web.filter.LoggerMDCFilter"/>
+				<bean class="com.github.sunflowerlb.framework.web.filter.HttpServletHolderFilter"/>
+				<bean class="com.github.sunflowerlb.framework.web.filter.LoggerMDCFilter"/>
 			</list>
 		</property>
 	</bean>
@@ -32,12 +32,12 @@ Pattern标签增加%X{uid}和%X{url}，示例如下：
 对于web系统，可以记录请求摘要日志，使用如下：
 1.配置增加PageDigestFilter：
 
-	<bean id="compositeFilter" class="com.lb.framework.web.filter.CompositeFilter">
+	<bean id="compositeFilter" class="com.github.sunflowerlb.framework.web.filter.CompositeFilter">
 		<property name="filters">
 			<list>
-				<bean class="com.lb.framework.web.filter.PageDigestFilter" />
-				<bean class="com.lb.framework.web.filter.HttpServletHolderFilter"/>
-				<bean class="com.lb.framework.web.filter.LoggerMDCFilter"/>
+				<bean class="com.github.sunflowerlb.framework.web.filter.PageDigestFilter" />
+				<bean class="com.github.sunflowerlb.framework.web.filter.HttpServletHolderFilter"/>
+				<bean class="com.github.sunflowerlb.framework.web.filter.LoggerMDCFilter"/>
 			</list>
 		</property>
 	</bean>

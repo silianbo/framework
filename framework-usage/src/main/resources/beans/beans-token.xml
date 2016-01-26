@@ -8,7 +8,7 @@
 
 	<aop:config>
 		<aop:pointcut id="formTokenPointCut"
-			expression="execution(* com.lb.framework.usage.controller..*.*(..))" />
+			expression="execution(* com.github.sunflowerlb.framework.usage.controller..*.*(..))" />
 		<aop:aspect ref="formTokenAspect">
 			<aop:around method="aroundAdvice" pointcut-ref="formTokenPointCut" />
 		</aop:aspect>

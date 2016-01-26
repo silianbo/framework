@@ -1,2 +1,2 @@
-dubboTrace=com.lb.framework.core.dubbo.DubboTraceFilter
-traceFilter=com.lb.framework.core.dubbo.govern.DubboTraceFilter
+dubboTrace=com.github.sunflowerlb.framework.core.dubbo.DubboTraceFilter
+traceFilter=com.github.sunflowerlb.framework.core.dubbo.govern.DubboTraceFilter

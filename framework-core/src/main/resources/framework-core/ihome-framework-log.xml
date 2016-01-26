@@ -24,7 +24,7 @@
 		</property>
 	</bean>
 	
-	<bean id="logBackSensInfoCryptoConfigFactory" class="com.lb.framework.core.log.SensInfoLogCryptoConfig.Factory">
+	<bean id="logBackSensInfoCryptoConfigFactory" class="com.github.sunflowerlb.framework.core.log.SensInfoLogCryptoConfig.Factory">
 	</bean> 
 
 	<bean id="logbackSensInfoCryptoConfig" factory-bean="logBackSensInfoCryptoConfigFactory" factory-method="getConfig">

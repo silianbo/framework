@@ -11,14 +11,14 @@
 	<dubbo:consumer check="false" />
 
 	<!-- consume服务 -->
-	<dubbo:reference interface="com.lb.framework.usage.service.IDubboTestService"
+	<dubbo:reference interface="com.github.sunflowerlb.framework.usage.service.IDubboTestService"
 		id="myDubboTestService" />
-	<dubbo:reference interface="com.lb.framework.usage.service.ITestFilterService"
+	<dubbo:reference interface="com.github.sunflowerlb.framework.usage.service.ITestFilterService"
 		id="myTestFilterService" />
 	
 
 	<!-- provide服务 -->
 	<!-- <dubbo:service
-		interface="com.lb.framework.usage.service.IDubboTestService"
+		interface="com.github.sunflowerlb.framework.usage.service.IDubboTestService"
 		ref="dubboTestService" /> -->
 </beans>

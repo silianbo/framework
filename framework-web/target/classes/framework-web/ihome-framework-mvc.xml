@@ -9,7 +9,7 @@
       					http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<bean id="exceptionHandler"
-		class="com.lb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
+		class="com.github.sunflowerlb.framework.web.servlet.handler.IHomeHandlerExceptionResolver">
 	</bean>
 
 	<bean

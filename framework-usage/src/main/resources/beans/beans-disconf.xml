@@ -8,7 +8,7 @@
 	<!-- 配置扫描的路径 -->
 	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
 		destroy-method="destory">
-		<property name="scanPackage" value="com.lb.framework.usage" />
+		<property name="scanPackage" value="com.github.sunflowerlb.framework.usage" />
 	</bean>
 
 	<!-- <bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"

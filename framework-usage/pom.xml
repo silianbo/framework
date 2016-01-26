@@ -4,9 +4,9 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-	  <groupId>com.lb.framework</groupId>
+	  <groupId>com.github.sunflowerlb</groupId>
 	  <artifactId>framework</artifactId>
-	  <version>0.0.1-SNAPSHOT</version>
+	  <version>0.0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>framework-usage</artifactId>
 	<packaging>war</packaging>
@@ -14,19 +14,19 @@
   
 	<dependencies>
 		<dependency>
-			<groupId>com.lb.framework</groupId>
+			<groupId>com.github.sunflowerlb</groupId>
 			<artifactId>framework-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.lb.framework</groupId>
+			<groupId>com.github.sunflowerlb</groupId>
 			<artifactId>framework-tools</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.lb.framework</groupId>
+			<groupId>com.github.sunflowerlb</groupId>
 			<artifactId>framework-web</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
@@ -99,10 +99,6 @@
 	    <dependency>
 	      <groupId>junit</groupId>
 	      <artifactId>junit</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.testng</groupId>
-	      <artifactId>testng</artifactId>
 	    </dependency>
 	    <dependency>
 	      <groupId>org.springframework</groupId>

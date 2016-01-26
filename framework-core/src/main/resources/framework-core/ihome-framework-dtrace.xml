@@ -24,8 +24,8 @@
 		</property>
 	</bean>
 	
-	<bean id="traceConfigFactory" class="com.lb.framework.core.dubbo.govern.TraceInitConfig.Factory" />
+	<bean id="traceConfigFactory" class="com.github.sunflowerlb.framework.core.dubbo.govern.TraceInitConfig.Factory" />
  
-    <bean id="traceInitConfig" class="com.lb.framework.core.dubbo.govern.TraceInitConfig" />
+    <bean id="traceInitConfig" class="com.github.sunflowerlb.framework.core.dubbo.govern.TraceInitConfig" />
  
 </beans>
