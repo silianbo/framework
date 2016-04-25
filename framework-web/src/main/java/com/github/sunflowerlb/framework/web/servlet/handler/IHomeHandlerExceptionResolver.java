@@ -120,6 +120,7 @@ public class IHomeHandlerExceptionResolver extends AbstractIHomeHandlerException
         try {
             OutputStream out = response.getOutputStream();
             out.write(bytes);
+            out.flush();
             return new ModelAndView();
         } catch (IOException e) {
             throw new RuntimeException("resolveExceptionForJson Fail", e);

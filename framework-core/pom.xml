@@ -157,6 +157,16 @@
 			<artifactId>servlet-api</artifactId>
 		</dependency>
 		<!-- servlet & jsp end -->
-		
+
+		<!-- commons-net -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+		</dependency>
+		<!-- jcraft for sftp -->
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+		</dependency>
 	</dependencies>
 </project>
