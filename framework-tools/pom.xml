@@ -75,5 +75,17 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<!-- logging end -->
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.5-FINAL</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.2.0</version>
+		</dependency>
 	</dependencies>
 </project>

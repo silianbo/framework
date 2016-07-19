@@ -10,7 +10,6 @@
 		<module>framework-core</module>
 		<module>framework-web</module>
 		<module>framework-usage</module>
-		<module>cms-web</module>
 	</modules>
 
 	<properties>

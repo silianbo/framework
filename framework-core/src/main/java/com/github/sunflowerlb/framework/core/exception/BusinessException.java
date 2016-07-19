@@ -42,4 +42,11 @@ public class BusinessException extends ApplicationException {
         super(message, cause, args);
     }
 
+    /**
+     * 为了泛化调用时好判断code
+     */
+    public String toString() {
+        String s = getClass().getName();
+        return "{\"class\":\""+s+"\",\"code\":"+this.getCode()+",\"message\":\""+this.getMessage()+"\"}";
+    }
 }
